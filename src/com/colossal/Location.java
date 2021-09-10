@@ -12,6 +12,11 @@ public class Location {
         this.locationID = locationID;
         this.desc = desc;
         connections = new HashMap<>();
+        connections.put("Q", 0);
+    }
+
+    public void addConnection(String dir, int locationID) {
+        connections.put(dir, locationID);
     }
 
     public int getLocationID() {
@@ -23,6 +28,6 @@ public class Location {
     }
 
     public Map<String, Integer> getConnections() {
-        return connections;
+        return new HashMap<>(connections);
     }
 }
