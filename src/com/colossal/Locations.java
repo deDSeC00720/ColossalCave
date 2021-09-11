@@ -7,11 +7,11 @@ public class Locations implements Map<Integer, Location> {
     private static final Map<Integer, Location> locations = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        FileWriter locationsFile = null;
-        FileWriter connFile = null;
+        BufferedWriter locationsFile = null;
+        BufferedWriter connFile = null;
         try {
-            locationsFile = new FileWriter("locations.txt");
-            connFile = new FileWriter("connections.txt");
+            locationsFile = new BufferedWriter(new FileWriter("locations.txt"));
+            connFile = new BufferedWriter(new FileWriter("connections.txt"));
             for (Location location : locations.values()) {
                 locationsFile.write(location.getLocationID() + "," + location.getDesc() + "\n");
                 for (String connection : location.getConnections().keySet()) {
@@ -19,13 +19,34 @@ public class Locations implements Map<Integer, Location> {
                 }
             }
         } finally {
-            if (locationsFile != null) {
-                locationsFile.close();
-            }
-            if (connFile != null) {
-                connFile.close();
+            try {
+                if (locationsFile != null) {
+                    locationsFile.close();
+                }
+                if (connFile != null) {
+                    connFile.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+//        try {
+//            locationsFile = new FileWriter("locations.txt");
+//            connFile = new FileWriter("connections.txt");
+//            for (Location location : locations.values()) {
+//                locationsFile.write(location.getLocationID() + "," + location.getDesc() + "\n");
+//                for (String connection : location.getConnections().keySet()) {
+//                    connFile.write(location.getLocationID() + "," + connection + "," + location.getConnections().get(connection) + "\n");
+//                }
+//            }
+//        } finally {
+//            if (locationsFile != null) {
+//                locationsFile.close();
+//            }
+//            if (connFile != null) {
+//                connFile.close();
+//            }
+//        }
     }
 
     static {
