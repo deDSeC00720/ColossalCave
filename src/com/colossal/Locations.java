@@ -16,23 +16,6 @@ public class Locations implements Map<Integer, Location> {
                 }
             }
         }
-//        try {
-//            locationsFile = new FileWriter("locations.txt");
-//            connFile = new FileWriter("connections.txt");
-//            for (Location location : locations.values()) {
-//                locationsFile.write(location.getLocationID() + "," + location.getDesc() + "\n");
-//                for (String connection : location.getConnections().keySet()) {
-//                    connFile.write(location.getLocationID() + "," + connection + "," + location.getConnections().get(connection) + "\n");
-//                }
-//            }
-//        } finally {
-//            if (locationsFile != null) {
-//                locationsFile.close();
-//            }
-//            if (connFile != null) {
-//                connFile.close();
-//            }
-//        }
     }
 
     static {
