@@ -31,13 +31,13 @@ public class Locations implements Map<Integer, Location> {
     static {
         Scanner scanner = null;
         try {
-            scanner = new Scanner(new FileReader("locations.txt"));
+            scanner = new Scanner(new FileReader("locations_big.txt"));
             scanner.useDelimiter(",");
             while (scanner.hasNextLine()) {
                 int locationID = scanner.nextInt();
                 scanner.skip(scanner.delimiter());
                 String desc = scanner.nextLine();
-                System.out.println(locationID + " " + desc);
+                locations.put(locationID, new Location(locationID, desc));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,6 +46,29 @@ public class Locations implements Map<Integer, Location> {
                 scanner.close();
             }
         }
+        scanner = null;
+        try {
+            scanner = new Scanner(new BufferedReader(new FileReader("directions_big.txt")));
+            scanner.useDelimiter(",");
+            while (scanner.hasNextLine()) {
+                int locationID = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+                String direction = scanner.next();
+                scanner.skip(scanner.delimiter());
+                String connIDString = scanner.nextLine();
+                int connectionID = Integer.parseInt(connIDString);
+
+                locations.get(locationID).addConnection(direction, connectionID);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+
 
 //        locations.put(0, new Location(0, "Exit"));
 //        locations.put(1, new Location(1, "You are standing at the end of the road before a small brick building"));
