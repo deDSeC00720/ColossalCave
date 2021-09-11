@@ -7,27 +7,13 @@ public class Locations implements Map<Integer, Location> {
     private static final Map<Integer, Location> locations = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        BufferedWriter locationsFile = null;
-        BufferedWriter connFile = null;
-        try {
-            locationsFile = new BufferedWriter(new FileWriter("locations.txt"));
-            connFile = new BufferedWriter(new FileWriter("connections.txt"));
+        try (BufferedWriter locationsFile = new BufferedWriter(new FileWriter("locations.txt"));
+             BufferedWriter connFile = new BufferedWriter(new FileWriter("connections.txt"))) {
             for (Location location : locations.values()) {
                 locationsFile.write(location.getLocationID() + "," + location.getDesc() + "\n");
                 for (String connection : location.getConnections().keySet()) {
                     connFile.write(location.getLocationID() + "," + connection + "," + location.getConnections().get(connection) + "\n");
                 }
-            }
-        } finally {
-            try {
-                if (locationsFile != null) {
-                    locationsFile.close();
-                }
-                if (connFile != null) {
-                    connFile.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
 //        try {
@@ -50,9 +36,7 @@ public class Locations implements Map<Integer, Location> {
     }
 
     static {
-        BufferedReader locationsFile = null;
-        try {
-            locationsFile = new BufferedReader(new FileReader("locations_big.txt"));
+        try (BufferedReader locationsFile = new BufferedReader(new FileReader("locations_big.txt"))) {
             String line;
             while ((line = locationsFile.readLine()) != null) {
                 System.out.println(line);
@@ -63,18 +47,9 @@ public class Locations implements Map<Integer, Location> {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (locationsFile != null) {
-                try {
-                    locationsFile.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
-        BufferedReader connFile = null;
-        try {
-            connFile = new BufferedReader(new FileReader("connections_big.txt"));
+
+        try (BufferedReader connFile = new BufferedReader(new FileReader("connections_big.txt"))) {
             String line;
             while ((line = connFile.readLine()) != null) {
                 System.out.println(line);
@@ -87,15 +62,6 @@ public class Locations implements Map<Integer, Location> {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
-            if (connFile != null) {
-                try {
-                    connFile.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
