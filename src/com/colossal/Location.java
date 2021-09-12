@@ -1,6 +1,6 @@
 package com.colossal;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Location {
@@ -11,7 +11,7 @@ public class Location {
     public Location(int locationID, String desc) {
         this.locationID = locationID;
         this.desc = desc;
-        connections = new HashMap<>();
+        connections = new LinkedHashMap<>();
         connections.put("Q", 0);
     }
 
@@ -28,6 +28,6 @@ public class Location {
     }
 
     public Map<String, Integer> getConnections() {
-        return new HashMap<>(connections);
+        return new LinkedHashMap<>(connections);
     }
 }
